@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { FaTrash, FaCarCrash, FaHome, FaBug, FaWater } from 'react-icons/fa'; 
+import { useNavigate } from 'react-router-dom';
 import { Line, Bar } from 'react-chartjs-2';
 import { CardData } from './Dashboard Data/CardData';
 import { LineChartData } from './Dashboard Data/LineChartData';
@@ -45,13 +45,17 @@ const getBarChartData = (ward, date) => {
 };
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [selectedWard, setSelectedWard] = useState(wardOptions[0]);
     const [selectedDate, setSelectedDate] = useState(dateOptions[0]);
 
     const cardData = useMemo(() => getCardData(selectedWard, selectedDate), [selectedWard, selectedDate]);
     const lineChartData = useMemo(() => getLineChartData(selectedWard, selectedDate), [selectedWard, selectedDate]);
     const barChartData = useMemo(() => getBarChartData(selectedWard, selectedDate), [selectedWard, selectedDate]);
-
+    
+    const handleCardClick = (category) => {
+        navigate('/details', { state: { category, ward: selectedWard } });
+    };
     return (
         <div className="container mx-auto p-4">
             <div className="flex space-x-8 mb-6 justify-center items-center">
@@ -97,15 +101,16 @@ const Dashboard = () => {
             {/* Top cards */}
             <div className="container mx-auto p-4">
                 <div className="grid grid-cols-5 gap-4">
-                    {cardData.map((card, index) => (
-                        <div key={index} className="bg-white shadow-lg rounded-lg p-6 text-center">
-                            <div className="flex justify-center mb-10">{card.icon}</div>
-                            <p className="text-3xl font-bold mb-5">{card.value}</p>
-                            <p className="text-gray-500 mb-2">{card.title}</p>
-                            <p className={`flex items-center justify-center text-base font-semibold ${card.changeColor}`}>
-                                {card.change === 'up' ? '↑' : '↓'} {card.percentage}
-                            </p>
-                        </div>
+                {cardData.map((card, index) => (
+                    <div
+                        key={index}
+                        className="bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer"
+                        onClick={() => handleCardClick(card.category)}
+                    >
+                        <div className="flex justify-center mb-10">{card.icon}</div>
+                        <p className="text-3xl font-bold mb-5">{card.value}</p>
+                        <p className="text-gray-500 mb-2">{card.title}</p>
+                    </div>
                     ))}
                 </div>
             </div>

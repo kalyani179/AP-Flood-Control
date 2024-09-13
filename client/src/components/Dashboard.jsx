@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Line, Bar } from 'react-chartjs-2';
 import { CardData } from './Dashboard Data/CardData';
 import { LineChartData } from './Dashboard Data/LineChartData';
@@ -46,8 +47,13 @@ const getBarChartData = (ward, date) => {
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [selectedWard, setSelectedWard] = useState(wardOptions[0]);
-    const [selectedDate, setSelectedDate] = useState(dateOptions[0]);
+    const [selectedWard, setSelectedWard] = useState(localStorage.getItem('selectedWard') || wardOptions[0]);
+    const [selectedDate, setSelectedDate] = useState(localStorage.getItem('selectedDate') || dateOptions[0]);
+
+    useEffect(() => {
+        localStorage.setItem('selectedWard', selectedWard);
+        localStorage.setItem('selectedDate', selectedDate);
+    }, [selectedWard, selectedDate]);
 
     const cardData = useMemo(() => getCardData(selectedWard, selectedDate), [selectedWard, selectedDate]);
     const lineChartData = useMemo(() => getLineChartData(selectedWard, selectedDate), [selectedWard, selectedDate]);

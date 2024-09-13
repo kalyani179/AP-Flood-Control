@@ -107,20 +107,20 @@ const Dashboard = () => {
             {/* Top cards */}
             <div className="container mx-auto p-4">
                 <div className="grid grid-cols-5 gap-4">
-                {cardData.map((card, index) => (
-                    <div
-                        key={index}
-                        className="bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer"
-                        onClick={() => handleCardClick(card.category)}
-                    >
-                        <div className="flex justify-center mb-10">{card.icon}</div>
-                        <p className="text-3xl font-bold mb-5">{card.value}</p>
-                        <p className="text-gray-500 mb-2">{card.title}</p>
-                    </div>
+                    {cardData.map((card, index) => (
+                        <div
+                            key={index}
+                            className="bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
+                            onClick={() => handleCardClick(card.category)}
+                        >
+                            <div className="flex justify-center mb-10">{card.icon}</div>
+                            <p className="text-3xl font-bold mb-5">{card.value}</p>
+                            <p className="text-gray-500 mb-2">{card.title}</p>
+                        </div>
                     ))}
                 </div>
             </div>
-
+            
             {/* Graphs */}
             <div className="grid grid-cols-2 gap-4 py-10">
                 <div className="bg-white shadow-lg rounded-lg p-6">

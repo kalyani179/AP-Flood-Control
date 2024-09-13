@@ -10,7 +10,7 @@ const DetailsPage = () => {
     <div className="container bg-[#f0f4fc] mx-auto flex flex-col gap-9 p-4">
          {/* Ward and Date */}
             <div className="text-center mb-2">
-                <span className="text-blue-600 bg-blue-100 px-4 py-2 rounded-full text-sm">Ward {ward} | {date}</span>
+                <span className="text-blue-600 bg-blue-100 px-4 py-2 rounded-full text-sm">{ward} | {date}</span>
             </div>
 
             {/* Category Title */}

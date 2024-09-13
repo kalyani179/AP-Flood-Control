@@ -1,8 +1,9 @@
 import React from "react";
+import Dashboard from "./components/Dashboard";
 const App = () => {
   return (
-    <div>
-      <h1 className="text-red-900">AP Flood Control</h1>
+    <div className="bg-[#f0f4fc] p-5">
+      <Dashboard />
     </div>
   )
 }

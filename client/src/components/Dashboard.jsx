@@ -31,18 +31,18 @@ const dateOptions = ['2024-01-01', '2024-02-01', '2024-03-01', '2024-04-01'];
 
 const Dashboard = () => {
   // Line chart data
-  const lineChartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-    datasets: [
-      {
-        label: "Monthly Performance",
-        data: [65, 59, 80, 81, 56, 55, 40, 70],
-        fill: false,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "#4bc0c0",
-      },
-    ],
-  };
+const lineChartData = {
+labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+datasets: [
+    {
+    label: "Monthly Performance",
+    data: [65, 59, 80, 81, 56, 55, 40, 70],
+    fill: false,
+    backgroundColor: "rgba(75,192,192,0.4)",
+    borderColor: "#4bc0c0",
+    },
+],
+};
 
 
   // Bar chart data
@@ -154,18 +154,18 @@ return (
     </div>
     {/* Top cards */}
     <div className="container mx-auto p-4">
-      <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-5 gap-4">
         {cardData.map((card, index) => (
-          <div key={index} className="bg-white shadow-lg rounded-lg p-6 text-center">
+            <div key={index} className="bg-white shadow-lg rounded-lg p-6 text-center">
             <div className="flex justify-center mb-10">{card.icon}</div>
             <p className="text-3xl font-bold mb-5">{card.value}</p>
             <p className="text-gray-500 mb-2">{card.title}</p>
             <p className={`flex items-center justify-center text-base font-semibold ${card.changeColor}`}>
-              {card.change === 'up' ? '↑' : '↓'} {card.percentage}
+                {card.change === 'up' ? '↑' : '↓'} {card.percentage}
             </p>
-          </div>
+            </div>
         ))}
-      </div>
+        </div>
     </div>
 
     {/* Graphs */}

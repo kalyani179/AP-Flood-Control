@@ -54,7 +54,7 @@ const Dashboard = () => {
     const barChartData = useMemo(() => getBarChartData(selectedWard, selectedDate), [selectedWard, selectedDate]);
     
     const handleCardClick = (category) => {
-        navigate('/details', { state: { category, ward: selectedWard } });
+        navigate('/details', { state: { category, ward: selectedWard,date : selectedDate } });
     };
     return (
         <div className="container mx-auto p-4">

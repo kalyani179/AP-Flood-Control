@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
+import 'chart.js/auto';
+import moment from 'moment';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -12,7 +14,7 @@ import {
     Legend,
 } from 'chart.js';
 import { FaTrash, FaCarCrash, FaHome, FaBug, FaWater } from 'react-icons/fa'; 
-
+import WardCharts from './WardCharts'; // Import WardCharts component
 
 // Registering components
 ChartJS.register(
@@ -82,36 +84,13 @@ const Dashboard = () => {
             percentage: item.percentage || '0%',
             change: item.change || 'up',
             changeColor: item.changeColor || 'text-gray-500',
-            imageUrl: item.imageUrl // Add this line to include the imageUrl
+            imageUrl: item.imageUrl
         }));
     }, [filteredData]);
     
 
-    const lineChartData = useMemo(() => {
-        if (!Array.isArray(data)) return { labels: [], datasets: [{ label: 'No Data', data: [], borderColor: 'rgba(75, 192, 192, 1)', backgroundColor: 'rgba(75, 192, 192, 0.2)' }] };
-
-        const dataForWard = data.filter(item => item.ward === selectedWard);
-        console.log('Data for Ward:', dataForWard);
-
-        if (!dataForWard.length) {
-            return { labels: [], datasets: [{ label: 'No Data', data: [], borderColor: 'rgba(75, 192, 192, 1)', backgroundColor: 'rgba(75, 192, 192, 0.2)' }] };
-        }
-        
-        return {
-            labels: dataForWard.map(item => item.date),
-            datasets: [
-                {
-                    label: 'Data',
-                    data: dataForWard.map(item => item.count),
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                }
-            ]
-        };
-    }, [data, selectedWard]);
-
     const handleCardClick = (category, imageUrl, latitude, longitude) => {
-        console.log('Navigating to details with imageUrl:', imageUrl, latitude, longitude); // Debugging line
+        console.log('Navigating to details with imageUrl:', imageUrl, latitude, longitude);
         navigate('/details', {
             state: { 
                 category, 
@@ -123,7 +102,6 @@ const Dashboard = () => {
             }
         });
     };
-    
 
     return (
         <div className="container mx-auto p-4">
@@ -175,7 +153,7 @@ const Dashboard = () => {
                     <div
                         key={index}
                         className={`bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
-                        onClick={() => handleCardClick(card.category, card.imageUrl, card.latitude, card.longitude)} // Passing all required arguments
+                        onClick={() => handleCardClick(card.category, card.imageUrl, card.latitude, card.longitude)}
                     >
                         <div className="flex justify-center mb-4">{card.icon}</div>
                         <p className="text-3xl font-bold mb-2">{card.value}</p>
@@ -188,11 +166,12 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Graphs */}
-            {/* <div className="bg-white shadow-lg rounded-lg p-10 m-10 mx-28">
-                <h3 className="text-xl font-semibold mb-4">Monthly Performance</h3>
-                <Line data={lineChartData} options={{ maintainAspectRatio: false }} />
-            </div> */}
+            {/* WardCharts */}
+            <div className="flex-1">
+                    <div className="container mx-auto p-4">
+                        <WardCharts data={data} selectedWard={selectedWard} />
+                    </div>
+            </div>
         </div>
     );
 };

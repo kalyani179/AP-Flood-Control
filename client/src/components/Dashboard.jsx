@@ -71,7 +71,7 @@ const Dashboard = () => {
 
     const cardData = useMemo(() => {
         if (!Array.isArray(filteredData)) return [];
-
+    
         return filteredData.map(item => ({
             category: item.type,
             value: item.count,
@@ -79,9 +79,11 @@ const Dashboard = () => {
             icon: iconMapping[item.type] || null,
             percentage: item.percentage || '0%',
             change: item.change || 'up',
-            changeColor: item.changeColor || 'text-gray-500'
+            changeColor: item.changeColor || 'text-gray-500',
+            imageUrl: item.imageUrl // Add this line to include the imageUrl
         }));
     }, [filteredData]);
+    
 
     const lineChartData = useMemo(() => {
         if (!Array.isArray(data)) return { labels: [], datasets: [{ label: 'No Data', data: [], borderColor: 'rgba(75, 192, 192, 1)', backgroundColor: 'rgba(75, 192, 192, 0.2)' }] };
@@ -106,9 +108,10 @@ const Dashboard = () => {
         };
     }, [data, selectedWard]);
 
-    const handleCardClick = (category) => {
-        navigate('/details', { state: { category, ward: selectedWard, date: selectedDate } });
-    };
+    const handleCardClick = (category, imageUrl) => {
+        console.log('Navigating to details with imageUrl:', imageUrl); // Debugging line
+        navigate('/details', { state: { category, ward: selectedWard, date: selectedDate, imageUrl } });
+    };   
 
     return (
         <div className="container mx-auto p-4">
@@ -155,21 +158,21 @@ const Dashboard = () => {
             {/* Top cards */}
             <div className="container mx-auto p-4">
                 <div className="grid grid-cols-5 gap-4">
-                    {cardData.length > 0 ? (
-                        cardData.map((card, index) => (
-                            <div
-                                key={index}
-                                className={`bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
-                                onClick={() => handleCardClick(card.category)}
-                            >
-                                <div className="flex justify-center mb-4">{card.icon}</div>
-                                <p className="text-3xl font-bold mb-2">{card.value}</p>
-                                <p className="text-gray-500 mb-2">{card.title}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No card data available.</p>
-                    )}
+                {cardData.length > 0 ? (
+                cardData.map((card, index) => (
+                    <div
+                        key={index}
+                        className={`bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
+                        onClick={() => handleCardClick(card.category, card.imageUrl)}
+                    >
+                        <div className="flex justify-center mb-4">{card.icon}</div>
+                        <p className="text-3xl font-bold mb-2">{card.value}</p>
+                        <p className="text-gray-500 mb-2">{card.title}</p>
+                    </div>
+                ))
+            ) : (
+                <p>No card data available.</p>
+            )}
                 </div>
             </div>
 

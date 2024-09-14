@@ -1,106 +1,72 @@
 export const LineChartData = {
     'Ward 1': {
-        '2024-01-01': {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [65, 59, 80, 81, 56, 55, 40, 70],
-                    fill: false,
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "#4bc0c0",
-                },
-            ],
-        },
-        '2024-02-01': {
-            labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [70, 65, 59, 85, 60, 45, 50, 75],
-                    fill: false,
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "#4bc0c0",
-                },
-            ],
-        },
+        labels: ['2024-09-08', '2024-09-09', '2024-09-10'],  // Date values for X-axis
+        datasets: [
+            {
+                label: "Garbage Pileup",
+                data: [26, 12, 4],  // Y-axis data for Garbage Pileup
+                fill: false,
+                borderColor: "rgba(255, 159, 64, 1)",
+            },
+            {
+                label: "Submerged Vehicle",
+                data: [6, 3, 0],
+                fill: false,
+                borderColor: "rgba(54, 162, 235, 1)",
+            },
+            {
+                label: "Submerged Building",
+                data: [6, 3, 0],
+                fill: false,
+                borderColor: "rgba(75, 192, 192, 1)",
+            },
+            {
+                label: "Mosquito Hotspot",
+                data: [15, 5, 2],
+                fill: false,
+                borderColor: "rgba(255, 99, 132, 1)",
+            },
+            {
+                label: "Silt Area",
+                data: [14, 12, 6],
+                fill: false,
+                borderColor: "rgba(75, 192, 192, 1)",
+            }
+        ],
     },
     'Ward 2': {
-        '2024-01-01': {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [50, 70, 60, 65, 85, 75, 80, 90],
-                    fill: false,
-                    backgroundColor: "rgba(153,102,255,0.4)",
-                    borderColor: "#9933ff",
-                },
-            ],
-        },
-        '2024-02-01': {
-            labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [60, 75, 65, 70, 90, 80, 85, 95],
-                    fill: false,
-                    backgroundColor: "rgba(153,102,255,0.4)",
-                    borderColor: "#9933ff",
-                },
-            ],
-        },
-    },
-    'Ward 3': {
-        '2024-01-01': {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [80, 60, 70, 75, 85, 65, 70, 80],
-                    fill: false,
-                    backgroundColor: "rgba(255,159,64,0.4)",
-                    borderColor: "#ff9f40",
-                },
-            ],
-        },
-        '2024-02-01': {
-            labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [75, 65, 70, 80, 90, 70, 75, 85],
-                    fill: false,
-                    backgroundColor: "rgba(255,159,64,0.4)",
-                    borderColor: "#ff9f40",
-                },
-            ],
-        },
-    },
-    'Ward 4': {
-        '2024-01-01': {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [90, 80, 70, 75, 85, 95, 85, 90],
-                    fill: false,
-                    backgroundColor: "rgba(255,99,132,0.4)",
-                    borderColor: "#ff6384",
-                },
-            ],
-        },
-        '2024-02-01': {
-            labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-            datasets: [
-                {
-                    label: "Monthly Performance",
-                    data: [85, 75, 70, 80, 90, 95, 90, 100],
-                    fill: false,
-                    backgroundColor: "rgba(255,99,132,0.4)",
-                    borderColor: "#ff6384",
-                },
-            ],
-        },
+        labels: ['2024-09-08', '2024-09-09', '2024-09-10'],  // Date values for X-axis (can be the same or different)
+        datasets: [
+            {
+                label: "Garbage Pileup",
+                data: [18, 10, 3],  // Different data for Ward 2
+                fill: false,
+                borderColor: "rgba(255, 159, 64, 1)",
+            },
+            {
+                label: "Submerged Vehicle",
+                data: [4, 2, 1],
+                fill: false,
+                borderColor: "rgba(54, 162, 235, 1)",
+            },
+            {
+                label: "Submerged Building",
+                data: [6, 3, 0],
+                fill: false,
+                borderColor: "rgba(75, 192, 192, 1)",
+            },
+            {
+                label: "Mosquito Hotspot",
+                data: [10, 7, 1],
+                fill: false,
+                borderColor: "rgba(255, 99, 132, 1)",
+            },
+            {
+                label: "Silt Area",
+                data: [12, 9, 5],
+                fill: false,
+                borderColor: "rgba(75, 192, 192, 1)",
+            }
+        ],
     },
 };

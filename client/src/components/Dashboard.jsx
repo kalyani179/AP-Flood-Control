@@ -1,17 +1,14 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { CardData } from './Dashboard Data/CardData';
 import { LineChartData } from './Dashboard Data/LineChartData';
-import { BarGraphData } from './Dashboard Data/BarGraphData';
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
-    BarElement,
     Title,
     Tooltip,
     Legend,
@@ -23,12 +20,10 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
-    BarElement,
     Title,
     Tooltip,
     Legend
 );
-
 
 const wardOptions = ['Ward 1', 'Ward 2', 'Ward 3', 'Ward 4'];
 const dateOptions = ['2024-01-01', '2024-02-01'];
@@ -37,12 +32,8 @@ const getCardData = (ward, date) => {
     return CardData[ward]?.[date] || [];
 };
 
-const getLineChartData = (ward, date) => {
-    return LineChartData[ward]?.[date] || {};
-};
-
-const getBarChartData = (ward, date) => {
-    return BarGraphData[ward]?.[date] || {};
+const getLineChartData = (ward) => {
+    return LineChartData[ward] || {};  // Remove date filtering for line chart
 };
 
 const Dashboard = () => {
@@ -56,12 +47,12 @@ const Dashboard = () => {
     }, [selectedWard, selectedDate]);
 
     const cardData = useMemo(() => getCardData(selectedWard, selectedDate), [selectedWard, selectedDate]);
-    const lineChartData = useMemo(() => getLineChartData(selectedWard, selectedDate), [selectedWard, selectedDate]);
-    const barChartData = useMemo(() => getBarChartData(selectedWard, selectedDate), [selectedWard, selectedDate]);
-    
+    const lineChartData = useMemo(() => getLineChartData(selectedWard), [selectedWard]);  // Fetch only by ward
+
     const handleCardClick = (category) => {
-        navigate('/details', { state: { category, ward: selectedWard,date : selectedDate } });
+        navigate('/details', { state: { category, ward: selectedWard, date: selectedDate } });
     };
+
     return (
         <div className="container mx-auto p-4">
             <div className="flex space-x-8 mb-6 justify-center items-center">
@@ -120,20 +111,15 @@ const Dashboard = () => {
                     ))}
                 </div>
             </div>
-            
+
             {/* Graphs */}
-            <div className="grid grid-cols-2 gap-4 py-10">
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h3 className="text-xl font-semibold mb-4">Monthly Performance</h3>
-                    <Line data={lineChartData} />
-                </div>
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h3 className="text-xl font-semibold mb-4">Activity Comparison</h3>
-                    <Bar data={barChartData} />
-                </div>
+            <div className="bg-white shadow-lg rounded-lg p-6">
+                <h3 className="text-xl font-semibold mb-4">Monthly Performance</h3>
+                <Line data={lineChartData} />
             </div>
         </div>
     );
 };
 
 export default Dashboard;
+

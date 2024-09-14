@@ -1,8 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-import moment from 'moment';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -15,6 +13,8 @@ import {
 } from 'chart.js';
 import { FaTrash, FaCarCrash, FaHome, FaBug, FaWater } from 'react-icons/fa'; 
 import WardCharts from './WardCharts'; // Import WardCharts component
+import Navbar from './Navbar';
+import Weather from './Weather';
 
 // Registering components
 ChartJS.register(
@@ -104,46 +104,57 @@ const Dashboard = () => {
     };
 
     return (
+        <>
+            <Navbar />
         <div className="container mx-auto p-4">
-            <div className="flex space-x-8 mb-6 justify-center items-center">
-                {/* Ward Dropdown */}
-                <div className="flex flex-col justify-center items-center">
-                    <label htmlFor="ward" className="block text-lg font-semibold mb-2">
-                        Select Ward
-                    </label>
-                    <select
-                        id="ward"
-                        value={selectedWard}
-                        onChange={(e) => setSelectedWard(e.target.value)}
-                        className="p-2 border border-gray-300 rounded-md"
-                    >
-                        {wardOptions.map((ward, index) => (
-                            <option key={index} value={ward}>
-                                {ward}
-                            </option>
-                        ))}
-                    </select>
+        <div className="flex justify-between mb-6 items-center">
+                    {/* Left side - Weather Section */}
+                    <div>
+                        <Weather /> {/* Render Weather component here */}
+                    </div>
+
+                    {/* Right side - Dropdowns */}
+                    <div className="flex space-x-8">
+                        {/* Ward Dropdown */}
+                        <div className="flex flex-col justify-center items-center">
+                            <label htmlFor="ward" className="block text-lg font-semibold mb-2">
+                                Select Ward
+                            </label>
+                            <select
+                                id="ward"
+                                value={selectedWard}
+                                onChange={(e) => setSelectedWard(e.target.value)}
+                                className="p-2 border border-gray-300 rounded-md"
+                            >
+                                {wardOptions.map((ward, index) => (
+                                    <option key={index} value={ward}>
+                                        {ward}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Date Dropdown */}
+                        <div className="flex flex-col justify-center items-center">
+                            <label htmlFor="date" className="block text-lg font-semibold mb-2">
+                                Select Date
+                            </label>
+                            <select
+                                id="date"
+                                value={selectedDate}
+                                onChange={(e) => setSelectedDate(e.target.value)}
+                                className="p-2 border border-gray-300 rounded-md"
+                            >
+                                {dateOptions.map((date, index) => (
+                                    <option key={index} value={date}>
+                                        {date}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Date Dropdown */}
-                <div className="flex flex-col justify-center items-center">
-                    <label htmlFor="date" className="block text-lg font-semibold mb-2">
-                        Select Date
-                    </label>
-                    <select
-                        id="date"
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        className="p-2 border border-gray-300 rounded-md"
-                    >
-                        {dateOptions.map((date, index) => (
-                            <option key={index} value={date}>
-                                {date}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </div>
 
             {/* Top cards */}
             <div className="container mx-auto p-4">
@@ -173,6 +184,7 @@ const Dashboard = () => {
                     </div>
             </div>
         </div>
+        </>
     );
 };
 

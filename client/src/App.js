@@ -6,7 +6,7 @@ import DetailsPage from './components/DetailsPage';
 const App = () => {
   return (
     <Router>
-      <div className="p-5">
+      <div>
         <Routes>
           {/* Define the default route for Dashboard */}
           <Route path="/" element={<Dashboard />} />

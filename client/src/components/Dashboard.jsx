@@ -113,7 +113,7 @@ const Dashboard = () => {
             </div>
 
             {/* Graphs */}
-            <div className="bg-white shadow-lg rounded-lg p-6">
+            <div className="bg-white shadow-lg rounded-lg p-10 m-10 mx-28">
                 <h3 className="text-xl font-semibold mb-4">Monthly Performance</h3>
                 <Line data={lineChartData} />
             </div>

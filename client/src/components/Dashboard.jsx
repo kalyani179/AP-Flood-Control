@@ -46,6 +46,19 @@ const Dashboard = () => {
         localStorage.setItem('selectedDate', selectedDate);
     }, [selectedWard, selectedDate]);
 
+    useEffect(() => {
+        fetch('http://localhost:5000/data')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => console.log(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+        
+
     const cardData = useMemo(() => getCardData(selectedWard, selectedDate), [selectedWard, selectedDate]);
     const lineChartData = useMemo(() => getLineChartData(selectedWard), [selectedWard]);  // Fetch only by ward
 

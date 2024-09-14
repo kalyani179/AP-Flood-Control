@@ -2,57 +2,33 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
-// Import the Image model
-// const Image = require('./models/Image');
+const DashboardData = require('./models/DashboardData'); // Import the model
 
 const app = express();
 app.use(cors());
-app.use(express.json()); // Middleware to parse incoming JSON data
+app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://dantulurikalyani999:gQOrNigXOpa5PtYF@cluster0.uabah.mongodb.net/', {
+mongoose.connect('mongodb+srv://dantulurikalyani999:gQOrNigXOpa5PtYF@cluster0.uabah.mongodb.net/Dashboard', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// API route to upload image data
-app.post('/api/upload', async (req, res) => {
+// Endpoint to fetch data
+app.get('/data', async (req, res) => {
     try {
-        const { imageUrl, date, latitude, longitude, ward, type } = req.body;
-
-        // Create a new image document
-        const newImage = new Image({
-            imageUrl,
-            date,
-            latitude,
-            longitude,
-            ward,
-            type
-        });
-
-        // Save the image to the database
-        const savedImage = await newImage.save();
-        res.status(201).json(savedImage);
+        const data = await DashboardData.find({});
+        res.json(data);
     } catch (err) {
-        res.status(500).json({ error: 'Error uploading image data' });
+        res.status(500).send(err);
     }
 });
-
-// API route to fetch all images
-app.get('/api/images', async (req, res) => {
-    try {
-        const images = await Image.find();
-        res.status(200).json(images);
-    } catch (err) {
-        res.status(500).json({ error: 'Error fetching images' });
-    }
-});
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+

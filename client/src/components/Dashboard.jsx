@@ -50,7 +50,7 @@ const Dashboard = () => {
     }, [selectedWard, selectedDate]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/data')
+        fetch('https://ap-flood-control.onrender.com')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

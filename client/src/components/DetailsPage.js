@@ -16,19 +16,19 @@ const DetailsPage = () => {
 
 
     return (
-        <div className="container bg-[#f0f4fc] mx-auto flex flex-col gap-9 p-4">
+        <div className="container mt-9 mx-auto flex flex-col gap-9 p-4">
             {/* Ward and Date */}
-            <div className="text-center mb-2">
+            <div className="text-center">
                 <span className="text-blue-600 bg-blue-100 px-6 border border-blue-700 py-2 rounded-full text-xl">
                     {ward} | {date}
                 </span>
             </div>
 
             {/* Category Title */}
-            <h1 className="text-center text-3xl font-bold text-gray-800 mb-6">{category}</h1>
+            <h1 className="text-center text-3xl font-bold text-gray-800">{category}</h1>
 
             {/* Display image with click functionality */}
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center">
                 {imageUrl ? (
                     <img
                         src={imageUrl}

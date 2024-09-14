@@ -40,7 +40,7 @@ const WardCharts = ({ data, selectedWard }) => {
     return (
         <div className="flex flex-row space-x-8">
             {chartDataForWard.map((chart, index) => (
-                <div key={index} className="bg-white shadow-lg rounded-lg p-10 ">
+                <div key={index} className="bg-[#f0f4fc] shadow-lg rounded-lg p-10 ">
                     <h3>{chart.title}</h3>
                     <Line data={chart.data} />
                 </div>

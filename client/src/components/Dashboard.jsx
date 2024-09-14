@@ -50,7 +50,7 @@ const Dashboard = () => {
     }, [selectedWard, selectedDate]);
 
     useEffect(() => {
-        fetch('https://ap-flood-control.onrender.com/data')
+        fetch('http://localhost:5000/data')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -163,7 +163,7 @@ const Dashboard = () => {
                 cardData.map((card, index) => (
                     <div
                         key={index}
-                        className={`bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
+                        className={`bg-[#f0f4fc] shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
                         onClick={() => handleCardClick(card.category, card.imageUrl, card.latitude, card.longitude)}
                     >
                         <div className="flex justify-center mb-4">{card.icon}</div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa'; // Import location icon
 
-// Replace with your OpenWeatherMap API key and the endpoint
 const API_KEY = '7ec5fd6e1b670cad400104e7b2f05f0f';
 const CITY = 'Vijayawada';
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`;
@@ -39,7 +39,10 @@ const Weather = () => {
 
     return (
         <div className="flex flex-col text-center">
-            <h3 className="text-sm -my-2">{weatherData.city}</h3>
+            <div className="flex items-center justify-center text-gray-700">
+                <FaMapMarkerAlt className="text-xl mr-2" />  {/* Location Icon */}
+                <h3 className="text-sm -my-2">{weatherData.city}</h3>
+            </div>
             <img src={weatherData.icon} alt="Weather Icon" className="mx-auto -my-3 text-xl" />
             <p className="text-2xl font-bold">{weatherData.temperature}</p>
             <p className="text-md text-gray-600">{weatherData.description}</p>

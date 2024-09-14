@@ -75,6 +75,8 @@ const Dashboard = () => {
         return filteredData.map(item => ({
             category: item.type,
             value: item.count,
+            latitude:item.latitude,
+            longitude:item.longitude,
             title: item.type.charAt(0).toUpperCase() + item.type.slice(1),
             icon: iconMapping[item.type] || null,
             percentage: item.percentage || '0%',
@@ -108,10 +110,20 @@ const Dashboard = () => {
         };
     }, [data, selectedWard]);
 
-    const handleCardClick = (category, imageUrl) => {
-        console.log('Navigating to details with imageUrl:', imageUrl); // Debugging line
-        navigate('/details', { state: { category, ward: selectedWard, date: selectedDate, imageUrl } });
-    };   
+    const handleCardClick = (category, imageUrl, latitude, longitude) => {
+        console.log('Navigating to details with imageUrl:', imageUrl, latitude, longitude); // Debugging line
+        navigate('/details', {
+            state: { 
+                category, 
+                ward: selectedWard, 
+                date: selectedDate, 
+                imageUrl, 
+                latitude, 
+                longitude 
+            }
+        });
+    };
+    
 
     return (
         <div className="container mx-auto p-4">
@@ -163,7 +175,7 @@ const Dashboard = () => {
                     <div
                         key={index}
                         className={`bg-white shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
-                        onClick={() => handleCardClick(card.category, card.imageUrl)}
+                        onClick={() => handleCardClick(card.category, card.imageUrl, card.latitude, card.longitude)} // Passing all required arguments
                     >
                         <div className="flex justify-center mb-4">{card.icon}</div>
                         <p className="text-3xl font-bold mb-2">{card.value}</p>

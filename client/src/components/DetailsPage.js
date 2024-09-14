@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const DetailsPage = () => {
     const location = useLocation();
-    const { category, ward, date, imageUrl } = location.state; // Get props from the navigation state
+    const { category, ward, date, imageUrl, latitude, longitude } = location.state || {};
 
-    console.log('Received imageUrl in DetailsPage:', imageUrl); // Debugging line
+    const handleImageClick = () => {
+        if (latitude && longitude) {
+            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+            window.open(googleMapsUrl, '_blank');
+        } else {
+            alert('Location coordinates are not available.');
+        }
+    };
+
 
     return (
         <div className="container bg-[#f0f4fc] mx-auto flex flex-col gap-9 p-4">
             {/* Ward and Date */}
             <div className="text-center mb-2">
-                <span className="text-blue-600 bg-blue-100 px-6 border border-blue-700 py-2 rounded-full text-xl">{ward} | {date}</span>
+                <span className="text-blue-600 bg-blue-100 px-6 border border-blue-700 py-2 rounded-full text-xl">
+                    {ward} | {date}
+                </span>
             </div>
 
             {/* Category Title */}
             <h1 className="text-center text-3xl font-bold text-gray-800 mb-6">{category}</h1>
 
-            {/* Display image */}
+            {/* Display image with click functionality */}
             <div className="flex justify-center mt-4">
                 {imageUrl ? (
-                    <img src={imageUrl} alt={`Image for ${category}`} className="w-full max-w-md h-auto object-cover" />
+                    <img
+                        src={imageUrl}
+                        alt={`for ${category}`}
+                        className="w-full max-w-md h-auto object-cover cursor-pointer"
+                        onClick={handleImageClick}
+                    />
                 ) : (
                     <p>No image available.</p>
                 )}

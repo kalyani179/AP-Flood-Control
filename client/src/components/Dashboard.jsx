@@ -11,11 +11,11 @@ const wardOptions = ['30', '32', '56', '57', '58', '59', '60', '61'];
 const dateOptions = ['2024-09-09', '2024-09-10', '2024-09-11', '2024-09-12', '2024-09-13'];
 
 const iconMapping = {
-    'garbage': <img src="../assets/icons/garbage.png" alt="" />,
-    'vehicle': <img src="../assets/icons/submergedvehicle.png" alt="" />,
-    'building': <img src="../assets/icons/garbage.png" alt="" />,
-    'mosquito': <img src="../assets/icons/mosquito.png" alt="" />,
-    'silt': <img src="../assets/icons/silt.png" alt="" />
+    'garbage': <img className='w-20 h-20' src="../assets/icons/garbage.png" alt="" />,
+    'vehicle': <img className='w-20 h-20' src="../assets/icons/submergedvehicle.png" alt="" />,
+    'building': <img className='w-20 h-20' src="../assets/icons/garbage.png" alt="" />,
+    'mosquito': <img className='w-20 h-20' src="../assets/icons/mosquito.png" alt="" />,
+    'silt': <img className='w-20 h-20' src="../assets/icons/silt.png" alt="" />
 };
 
 const Dashboard = () => {
@@ -163,7 +163,7 @@ const Dashboard = () => {
                 ) : (
                     <div className="flex justify-center items-center gap-10"> {/* Adjusted to 2 columns */}
                         <div
-                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
+                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-10 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
                             onClick={() => handleCardClick('garbage', null, null, null)} // Update with actual params if needed
                         >
                             <div className="flex justify-center mb-4">{iconMapping['garbage']}</div>
@@ -172,7 +172,7 @@ const Dashboard = () => {
                         </div>
 
                         <div
-                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
+                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-10 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
                             onClick={() => handleCardClick('mosquito', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['mosquito']}</div>
@@ -180,7 +180,7 @@ const Dashboard = () => {
                             <p className="text-gray-500 mb-2">Mosquito</p>
                         </div>
                         <div
-                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
+                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-10 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
                             onClick={() => handleCardClick('osquito', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['silt']}</div>
@@ -188,7 +188,7 @@ const Dashboard = () => {
                             <p className="text-gray-500 mb-2">Silt Area</p>
                         </div>
                         <div
-                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
+                            className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-10 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
                             onClick={() => handleCardClick('osquito', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['vehicle']}</div>

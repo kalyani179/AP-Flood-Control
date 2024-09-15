@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Import Chart.js
 
+const dateOptions = ['2024-09-09', '2024-09-10', '2024-09-11', '2024-09-12', '2024-09-13']; // Define the complete set of dates
+
 const WardCharts = ({ selectedWard }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const WardCharts = ({ selectedWard }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/ward-image-count?ward=${selectedWard}`);
+                const response = await fetch(`https://ap-flood-control.onrender.com/ward-image-count?ward=${selectedWard}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -29,16 +31,36 @@ const WardCharts = ({ selectedWard }) => {
     const chartData = useMemo(() => {
         if (loading || error) return {};
 
-        // Prepare data for Garbage chart
-        const garbageData = data.map(item => ({
-            date: item.date,
-            count: item.garbageCount
+        // Initialize data maps with all dates set to 0
+        const garbageCounts = dateOptions.reduce((acc, date) => {
+            acc[date] = 0;
+            return acc;
+        }, {});
+
+        const mosquitoCounts = dateOptions.reduce((acc, date) => {
+            acc[date] = 0;
+            return acc;
+        }, {});
+
+        // Populate the counts with actual data from API
+        data.forEach(item => {
+            if (garbageCounts.hasOwnProperty(item.date)) {
+                garbageCounts[item.date] = item.garbageCount;
+            }
+            if (mosquitoCounts.hasOwnProperty(item.date)) {
+                mosquitoCounts[item.date] = item.mosquitoCount;
+            }
+        });
+
+        // Convert data maps to arrays for charting
+        const garbageData = dateOptions.map(date => ({
+            date,
+            count: garbageCounts[date]
         }));
 
-        // Prepare data for Mosquito chart
-        const mosquitoData = data.map(item => ({
-            date: item.date,
-            count: item.mosquitoCount
+        const mosquitoData = dateOptions.map(date => ({
+            date,
+            count: mosquitoCounts[date]
         }));
 
         return {
@@ -78,16 +100,16 @@ const WardCharts = ({ selectedWard }) => {
     }
 
     return (
-        <div className="p-4 flex justify-center items-center">
+        <div className="p-2 flex justify-center items-center">
             <div className="flex flex-row space-x-8">
                 {/* Garbage Chart */}
-                <div className="bg-[#f0f4fc] shadow-lg rounded-lg p-10">
+                <div className="bg-[#f0f4fc] shadow-lg rounded-lg p-8">
                     <h3>Garbage</h3>
                     <Line data={chartData.garbageChart} />
                 </div>
 
                 {/* Mosquito Chart */}
-                <div className="bg-[#f0f4fc] shadow-lg rounded-lg p-10">
+                <div className="bg-[#f0f4fc] shadow-lg rounded-lg p-8">
                     <h3>Mosquito</h3>
                     <Line data={chartData.mosquitoChart} />
                 </div>

@@ -56,7 +56,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchImageCounts = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/image-count?ward=${selectedWard}&date=${selectedDate}`);
+                const response = await fetch(`https://ap-flood-control.onrender.com/image-count?ward=${selectedWard}&date=${selectedDate}`);
                 
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);

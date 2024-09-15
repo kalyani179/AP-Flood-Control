@@ -1,14 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'chart.js/auto';
-import { FaTrash, FaCarCrash, FaHome, FaBug, FaWater } from 'react-icons/fa'; 
 import WardCharts from './WardCharts'; // Import WardCharts component
 import Navbar from './Navbar';
 import { ClipLoader } from 'react-spinners'; // Import a spinner library
 
 // Register chart components
 const wardOptions = ['30', '32', '56', '57', '58', '59', '60', '61'];
-const dateOptions = ['2024-09-09', '2024-09-10', '2024-09-11', '2024-09-12', '2024-09-13'];
+const dateOptions = ['2024-09-09', '2024-09-10', '2024-09-11', '2024-09-12', '2024-09-13','2024-09-14'];
 
 const iconMapping = {
     'garbage': <img className='w-20 h-20' src="../assets/icons/garbage.png" alt="" />,

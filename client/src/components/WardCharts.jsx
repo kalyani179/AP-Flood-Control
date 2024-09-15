@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Import Chart.js
+import { ClipLoader } from 'react-spinners';
 
 const dateOptions = ['2024-09-09', '2024-09-10', '2024-09-11', '2024-09-12', '2024-09-13']; // Define the complete set of dates
 
@@ -92,7 +93,11 @@ const WardCharts = ({ selectedWard }) => {
     }, [data, loading, error]);
 
     if (loading) {
-        return <div>Loading...</div>; // Show a loading message or spinner
+        return  (
+        <div className="flex mt-10 justify-center items-center">
+            <ClipLoader color={"#123abc"} loading={loading} size={50} />
+        </div> // Show a loading message or spinner
+        )
     }
 
     if (error) {

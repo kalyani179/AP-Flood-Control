@@ -50,7 +50,7 @@ const Dashboard = () => {
     }, [selectedWard, selectedDate]);
 
     useEffect(() => {
-        fetch('https://ap-flood-control.onrender.com/data')
+        fetch('http://localhost:5000/data')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -107,53 +107,49 @@ const Dashboard = () => {
         <>
             <Navbar />
         <div className="container mx-auto p-4">
-        <div className="flex justify-between mb-6 items-center">
-                    {/* Left side - Weather Section */}
-                    <div>
-                        <Weather /> {/* Render Weather component here */}
-                    </div>
+        <div className="w-full flex -mt-20 justify-center items-center mb-6">
+        {/* Right side - Dropdowns */}
+        <div className="flex space-x-8 justify-center items-center mx-auto">
+            {/* Ward Dropdown */}
+            <div className="flex flex-col justify-center items-center">
+                <label htmlFor="ward" className="block text-lg font-semibold mb-2">
+                    Select Ward
+                </label>
+                <select
+                    id="ward"
+                    value={selectedWard}
+                    onChange={(e) => setSelectedWard(e.target.value)}
+                    className="p-2 border border-gray-300 rounded-md"
+                >
+                    {wardOptions.map((ward, index) => (
+                        <option key={index} value={ward}>
+                            {ward}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
-                    {/* Right side - Dropdowns */}
-                    <div className="flex space-x-8">
-                        {/* Ward Dropdown */}
-                        <div className="flex flex-col justify-center items-center">
-                            <label htmlFor="ward" className="block text-lg font-semibold mb-2">
-                                Select Ward
-                            </label>
-                            <select
-                                id="ward"
-                                value={selectedWard}
-                                onChange={(e) => setSelectedWard(e.target.value)}
-                                className="p-2 border border-gray-300 rounded-md"
-                            >
-                                {wardOptions.map((ward, index) => (
-                                    <option key={index} value={ward}>
-                                        {ward}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+            {/* Date Dropdown */}
+            <div className="flex flex-col justify-center items-center">
+                <label htmlFor="date" className="block text-lg font-semibold mb-2">
+                    Select Date
+                </label>
+                <select
+                    id="date"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="p-2 border border-gray-300 rounded-md"
+                >
+                    {dateOptions.map((date, index) => (
+                        <option key={index} value={date}>
+                            {date}
+                        </option>
+                    ))}
+                </select>
+            </div>
+        </div>
+    </div>
 
-                        {/* Date Dropdown */}
-                        <div className="flex flex-col justify-center items-center">
-                            <label htmlFor="date" className="block text-lg font-semibold mb-2">
-                                Select Date
-                            </label>
-                            <select
-                                id="date"
-                                value={selectedDate}
-                                onChange={(e) => setSelectedDate(e.target.value)}
-                                className="p-2 border border-gray-300 rounded-md"
-                            >
-                                {dateOptions.map((date, index) => (
-                                    <option key={index} value={date}>
-                                        {date}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-                </div>
 
 
             {/* Top cards */}

@@ -1,13 +1,11 @@
 import React from 'react';
+import Weather from './Weather';
 
 const Navbar = () => {
     return (
-        <nav className="bg-[#6883a8] p-4 pl-14 m-0 shadow-md">
-            <div className="">
-                <div className="flex justify-start items-center">
-                    <h1 className="text-2xl font-bold text-white">AP FLOOD CONTROL</h1>
-                </div>
-            </div>
+        <nav className="p-8 pl-20 flex justify-between">
+            <img className="w-24 h-24" src="../assets/logos/andhra-pradesh-state-new-emblem-logo-ECDF9406BD-seeklogo.com.png" alt="" />
+            <Weather />
         </nav>
     );
 };

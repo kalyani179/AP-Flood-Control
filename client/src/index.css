@@ -10,3 +10,7 @@
         @apply text-black box-border overflow-x-hidden bg-[#ccd8f1]
     }
 }
+
+body::-webkit-scrollbar {
+    display: none;
+}

@@ -4,7 +4,7 @@ import Weather from './Weather';
 const Navbar = () => {
     return (
         <nav className="p-8 pl-20 flex justify-between">
-            <img className="w-24 h-24" src="../assets/logos/andhra-pradesh-state-new-emblem-logo-ECDF9406BD-seeklogo.com.png" alt="" />
+            <img className="w-[98px] h-[106px]" src="../assets/logos/andhra-pradesh-state-new-emblem-logo-ECDF9406BD-seeklogo.com.png" alt="" />
             <Weather />
         </nav>
     );

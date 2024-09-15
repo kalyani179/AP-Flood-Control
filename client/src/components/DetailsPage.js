@@ -89,7 +89,7 @@ const DetailsPage = () => {
             <div className="flex flex-wrap justify-center gap-4">
                 {cardData.length > 0 ? (
                     cardData.map((item, index) => (
-                        <div key={index} className="relative cursor-pointer">
+                        <div key={index} className="relative bg-white p-4 rounded-xl shadow-xl cursor-pointer">
                             <img
                                 src={item.imageUrl}
                                 alt={`for ${category}`}

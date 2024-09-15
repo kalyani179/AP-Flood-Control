@@ -1,32 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'chart.js/auto';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
 import { FaTrash, FaCarCrash, FaHome, FaBug, FaWater } from 'react-icons/fa'; 
 import WardCharts from './WardCharts'; // Import WardCharts component
 import Navbar from './Navbar';
 import Weather from './Weather';
+import { ClipLoader } from 'react-spinners'; // Import a spinner library
 
-// Registering components
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
-
+// Register chart components
 const wardOptions = ['30', '32', '56', '57', '58', '59', '60', '61'];
 const dateOptions = ['2024-09-09', '2024-09-10', '2024-09-11', '2024-09-12', '2024-09-13'];
 
@@ -43,6 +24,7 @@ const Dashboard = () => {
     const [selectedWard, setSelectedWard] = useState(localStorage.getItem('selectedWard') || wardOptions[0]);
     const [selectedDate, setSelectedDate] = useState(localStorage.getItem('selectedDate') || dateOptions[0]);
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);  // Loading state
 
     useEffect(() => {
         localStorage.setItem('selectedWard', selectedWard);
@@ -50,6 +32,7 @@ const Dashboard = () => {
     }, [selectedWard, selectedDate]);
 
     useEffect(() => {
+        setLoading(true);  // Set loading to true when data fetching starts
         fetch('http://localhost:5000/data')
             .then(response => {
                 if (!response.ok) {
@@ -60,11 +43,14 @@ const Dashboard = () => {
             .then(fetchedData => {
                 console.log('Fetched Data:', fetchedData);
                 setData(fetchedData);
+                setLoading(false);  // Set loading to false when data fetching is done
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setLoading(false);  // Set loading to false if there is an error
+            });
     }, []);
 
-    // Filter data based on selected ward and date
     const filteredData = useMemo(() => {
         const result = data.filter(item => item.ward === selectedWard && item.date === selectedDate);
         console.log('Filtered Data:', result);
@@ -77,8 +63,8 @@ const Dashboard = () => {
         return filteredData.map(item => ({
             category: item.type,
             value: item.count,
-            latitude:item.latitude,
-            longitude:item.longitude,
+            latitude: item.latitude,
+            longitude: item.longitude,
             title: item.type.charAt(0).toUpperCase() + item.type.slice(1),
             icon: iconMapping[item.type] || null,
             percentage: item.percentage || '0%',
@@ -87,7 +73,6 @@ const Dashboard = () => {
             imageUrl: item.imageUrl
         }));
     }, [filteredData]);
-    
 
     const handleCardClick = (category, imageUrl, latitude, longitude) => {
         console.log('Navigating to details with imageUrl:', imageUrl, latitude, longitude);
@@ -106,80 +91,83 @@ const Dashboard = () => {
     return (
         <>
             <Navbar />
-        <div className="container mx-auto p-4">
-        <div className="w-full flex -mt-20 justify-center items-center mb-6">
-        {/* Right side - Dropdowns */}
-        <div className="flex space-x-8 justify-center items-center mx-auto">
-            {/* Ward Dropdown */}
-            <div className="flex flex-col justify-center items-center">
-                <label htmlFor="ward" className="block text-lg font-semibold mb-2">
-                    Select Ward
-                </label>
-                <select
-                    id="ward"
-                    value={selectedWard}
-                    onChange={(e) => setSelectedWard(e.target.value)}
-                    className="p-2 border border-gray-300 rounded-md"
-                >
-                    {wardOptions.map((ward, index) => (
-                        <option key={index} value={ward}>
-                            {ward}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-            {/* Date Dropdown */}
-            <div className="flex flex-col justify-center items-center">
-                <label htmlFor="date" className="block text-lg font-semibold mb-2">
-                    Select Date
-                </label>
-                <select
-                    id="date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="p-2 border border-gray-300 rounded-md"
-                >
-                    {dateOptions.map((date, index) => (
-                        <option key={index} value={date}>
-                            {date}
-                        </option>
-                    ))}
-                </select>
-            </div>
-        </div>
-    </div>
-
-
-
-            {/* Top cards */}
             <div className="container mx-auto p-4">
-                <div className="grid grid-cols-5 gap-4">
-                {cardData.length > 0 ? (
-                cardData.map((card, index) => (
-                    <div
-                        key={index}
-                        className={`bg-[#f0f4fc] shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
-                        onClick={() => handleCardClick(card.category, card.imageUrl, card.latitude, card.longitude)}
-                    >
-                        <div className="flex justify-center mb-4">{card.icon}</div>
-                        <p className="text-3xl font-bold mb-2">{card.value}</p>
-                        <p className="text-gray-500 mb-2">{card.title}</p>
+                <div className="w-full flex -mt-24 justify-center items-center mb-6">
+                    {/* Dropdowns */}
+                    <div className="flex space-x-8 justify-center items-center mx-auto">
+                        <div className="flex flex-col justify-center items-center">
+                            <label htmlFor="ward" className="block text-lg font-semibold mb-2">
+                                Select Ward
+                            </label>
+                            <select
+                                id="ward"
+                                value={selectedWard}
+                                onChange={(e) => setSelectedWard(e.target.value)}
+                                className="p-2 border border-gray-300 rounded-md"
+                            >
+                                {wardOptions.map((ward, index) => (
+                                    <option key={index} value={ward}>
+                                        {ward}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="flex flex-col justify-center items-center">
+                            <label htmlFor="date" className="block text-lg font-semibold mb-2">
+                                Select Date
+                            </label>
+                            <select
+                                id="date"
+                                value={selectedDate}
+                                onChange={(e) => setSelectedDate(e.target.value)}
+                                className="p-2 border border-gray-300 rounded-md"
+                            >
+                                {dateOptions.map((date, index) => (
+                                    <option key={index} value={date}>
+                                        {date}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                ))
-            ) : (
-                <p>No card data available.</p>
-            )}
+                </div>
+
+                {/* Top cards */}
+                <div className="container mx-auto p-4">
+                    {loading ? (
+                        <div className="flex justify-center items-center">
+                            <ClipLoader color={"#123abc"} loading={loading} size={50} />
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-5 gap-4">
+                            {cardData.length > 0 ? (
+                                cardData.map((card, index) => (
+                                    <div
+                                        key={index}
+                                        className={`bg-[#f0f4fc] shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
+                                        onClick={() => handleCardClick(card.category, card.imageUrl, card.latitude, card.longitude)}
+                                    >
+                                        <div className="flex justify-center mb-4">{card.icon}</div>
+                                        <p className="text-3xl font-bold mb-2">{card.value}</p>
+                                        <p className="text-gray-500 mb-2">{card.title}</p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No card data available.</p>
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                {/* WardCharts */}
+                <div className="flex-1">
+                    <div className="container mx-auto p-4">
+    
+                        <WardCharts data={data} selectedWard={selectedWard} />
+    
+                    </div>
                 </div>
             </div>
-
-            {/* WardCharts */}
-            <div className="flex-1">
-                    <div className="container mx-auto p-4">
-                        <WardCharts data={data} selectedWard={selectedWard} />
-                    </div>
-            </div>
-        </div>
         </>
     );
 };

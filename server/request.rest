@@ -1,2 +1,2 @@
-GET http://localhost:5000/data
-Content-Type: application/json
+GET http://localhost:5000/ward-image-count?ward=56
+

@@ -4,7 +4,6 @@ import 'chart.js/auto';
 import { FaTrash, FaCarCrash, FaHome, FaBug, FaWater } from 'react-icons/fa'; 
 import WardCharts from './WardCharts'; // Import WardCharts component
 import Navbar from './Navbar';
-import Weather from './Weather';
 import { ClipLoader } from 'react-spinners'; // Import a spinner library
 
 // Register chart components
@@ -50,6 +49,32 @@ const Dashboard = () => {
                 setLoading(false);  // Set loading to false if there is an error
             });
     }, []);
+    // State variables for garbage and mosquito counts
+    const [garbageCount, setGarbageCount] = useState(0);
+    const [mosquitoCount, setMosquitoCount] = useState(0);
+
+    useEffect(() => {
+        const fetchImageCounts = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/image-count?ward=${selectedWard}&date=${selectedDate}`);
+                
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+    
+                const data = await response.json();
+                console.log('Image Counts:', data);
+                
+                setGarbageCount(data.garbageCount || 0);
+                setMosquitoCount(data.mosquitoCount || 0);
+            } catch (error) {
+                console.error('Error fetching image counts:', error);
+            }
+        };
+    
+        fetchImageCounts();
+    }, [selectedWard, selectedDate]);
+    
 
     const filteredData = useMemo(() => {
         const result = data.filter(item => item.ward === selectedWard && item.date === selectedDate);
@@ -132,39 +157,38 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Top cards */}
-                <div className="container mx-auto p-4">
-                    {loading ? (
-                        <div className="flex mt-10 justify-center items-center">
-                            <ClipLoader color={"#123abc"} loading={loading} size={50} />
+                  {/* Top cards */}
+            <div className="container mx-auto p-4">
+                {loading ? (
+                    <div className="flex mt-10 justify-center items-center">
+                        <ClipLoader color={"#123abc"} loading={loading} size={50} />
+                    </div>
+                ) : (
+                    <div className="flex justify-center items-center gap-10"> {/* Adjusted to 2 columns */}
+                        <div
+                            className={`bg-[#f0f4fc] w-60 h-48 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
+                            onClick={() => handleCardClick('Garbage', null, null, null)} // Update with actual params if needed
+                        >
+                            <div className="flex justify-center mb-4">{iconMapping['garbage']}</div>
+                            <p className="text-3xl font-bold mb-2">{garbageCount}</p> {/* Using garbageCount */}
+                            <p className="text-gray-500 mb-2">Garbage</p>
                         </div>
-                    ) : (
-                        <div className="grid grid-cols-5 gap-4">
-                            {cardData.length > 0 ? (
-                                cardData.map((card, index) => (
-                                    <div
-                                        key={index}
-                                        className={`bg-[#f0f4fc] shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 ${card.changeColor}`}
-                                        onClick={() => handleCardClick(card.category, card.imageUrl, card.latitude, card.longitude)}
-                                    >
-                                        <div className="flex justify-center mb-4">{card.icon}</div>
-                                        <p className="text-3xl font-bold mb-2">{card.value}</p>
-                                        <p className="text-gray-500 mb-2">{card.title}</p>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No card data available.</p>
-                            )}
-                        </div>
-                    )}
-                </div>
 
+                        <div
+                            className={`bg-[#f0f4fc] w-60 h-48 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
+                            onClick={() => handleCardClick('Mosquito', null, null, null)} 
+                        >
+                            <div className="flex justify-center mb-4">{iconMapping['mosquito']}</div>
+                            <p className="text-3xl font-bold mb-2">{mosquitoCount}</p> {/* Using mosquitoCount */}
+                            <p className="text-gray-500 mb-2">Mosquito</p>
+                        </div>
+                    </div>
+                )}
+            </div>
                 {/* WardCharts */}
                 <div className="flex-1">
                     <div className="container mx-auto p-4">
-    
-                        <WardCharts data={data} selectedWard={selectedWard} />
-    
+                        <WardCharts data={data} garbageCount={garbageCount} mosquitoCount={mosquitoCount} selectedWard={selectedWard} />
                     </div>
                 </div>
             </div>

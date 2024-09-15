@@ -33,7 +33,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true);  // Set loading to true when data fetching starts
-        fetch('http://localhost:5000/data')
+        fetch('https://ap-flood-control.onrender.com/data')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -135,7 +135,7 @@ const Dashboard = () => {
                 {/* Top cards */}
                 <div className="container mx-auto p-4">
                     {loading ? (
-                        <div className="flex justify-center items-center">
+                        <div className="flex mt-10 justify-center items-center">
                             <ClipLoader color={"#123abc"} loading={loading} size={50} />
                         </div>
                     ) : (

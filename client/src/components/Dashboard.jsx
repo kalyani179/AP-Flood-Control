@@ -99,20 +99,17 @@ const Dashboard = () => {
         }));
     }, [filteredData]);
 
-    const handleCardClick = (category, imageUrl, latitude, longitude) => {
-        console.log('Navigating to details with imageUrl:', imageUrl, latitude, longitude);
+    const handleCardClick = (category) => {
+        console.log('Navigating to details with imageUrl:');
         navigate('/details', {
             state: { 
                 category, 
                 ward: selectedWard, 
-                date: selectedDate, 
-                imageUrl, 
-                latitude, 
-                longitude 
+                date: selectedDate 
             }
         });
     };
-
+    
     return (
         <>
             <Navbar />
@@ -167,7 +164,7 @@ const Dashboard = () => {
                     <div className="flex justify-center items-center gap-10"> {/* Adjusted to 2 columns */}
                         <div
                             className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
-                            onClick={() => handleCardClick('Garbage', null, null, null)} // Update with actual params if needed
+                            onClick={() => handleCardClick('garbage', null, null, null)} // Update with actual params if needed
                         >
                             <div className="flex justify-center mb-4">{iconMapping['garbage']}</div>
                             <p className="text-3xl font-bold mb-2">{garbageCount}</p> {/* Using garbageCount */}
@@ -176,7 +173,7 @@ const Dashboard = () => {
 
                         <div
                             className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
-                            onClick={() => handleCardClick('Mosquito', null, null, null)} 
+                            onClick={() => handleCardClick('mosquito', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['mosquito']}</div>
                             <p className="text-3xl font-bold mb-2">{mosquitoCount}</p> {/* Using mosquitoCount */}
@@ -184,7 +181,7 @@ const Dashboard = () => {
                         </div>
                         <div
                             className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
-                            onClick={() => handleCardClick('Mosquito', null, null, null)} 
+                            onClick={() => handleCardClick('osquito', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['silt']}</div>
                             <p className="text-3xl font-bold mb-2">{0}</p> {/* Using mosquitoCount */}
@@ -192,7 +189,7 @@ const Dashboard = () => {
                         </div>
                         <div
                             className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-6 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
-                            onClick={() => handleCardClick('Mosquito', null, null, null)} 
+                            onClick={() => handleCardClick('osquito', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['vehicle']}</div>
                             <p className="text-3xl font-bold mb-2">{0}</p> {/* Using mosquitoCount */}

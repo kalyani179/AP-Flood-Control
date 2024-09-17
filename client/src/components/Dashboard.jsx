@@ -180,7 +180,7 @@ const Dashboard = () => {
                         </div>
                         <div
                             className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-10 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
-                            onClick={() => handleCardClick('osquito', null, null, null)} 
+                            onClick={() => handleCardClick('Silt Area', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['silt']}</div>
                             <p className="text-3xl font-bold mb-2">{0}</p> {/* Using mosquitoCount */}
@@ -188,7 +188,7 @@ const Dashboard = () => {
                         </div>
                         <div
                             className={`bg-[#f0f4fc] w-60 h-68 shadow-lg rounded-lg p-10 text-center cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95`}
-                            onClick={() => handleCardClick('osquito', null, null, null)} 
+                            onClick={() => handleCardClick('Submerged Vehicle', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['vehicle']}</div>
                             <p className="text-3xl font-bold mb-2">{0}</p> {/* Using mosquitoCount */}

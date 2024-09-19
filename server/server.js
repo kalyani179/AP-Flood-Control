@@ -28,21 +28,18 @@ app.get('/data', async (req, res) => {
 // API to fetch counts for "garbage" and "mosquito" images based on ward and date
 app.get('/image-count', async (req, res) => {
     const { ward, date } = req.query;
-  
     if (!ward || !date) {
-      return res.status(400).json({ message: 'Ward and date are required' });
+        return res.status(400).json({ message: 'Ward and date are required' });
     }
-  
     try {
         // Count the number of "garbage" images
         const garbageCount = await ImageObject.countDocuments({ ward, date, type: 'garbage' });
-      
         // Count the number of "mosquito" images
         const mosquitoCount = await ImageObject.countDocuments({ ward, date, type: 'mosquito' });
-      
+
         res.status(200).json({
-          garbageCount,
-          mosquitoCount,
+            garbageCount,
+            mosquitoCount,
         });
     } catch (error) {
         console.error('Error fetching image counts:', error);

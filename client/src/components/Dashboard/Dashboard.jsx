@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'chart.js/auto';
 import WardCharts from './WardCharts'; // Import WardCharts component
-import Navbar from './Navbar';
+import Navbar from '../Navbar/Navbar';
 import { ClipLoader } from 'react-spinners'; // Import a spinner library
 
 // Register chart components

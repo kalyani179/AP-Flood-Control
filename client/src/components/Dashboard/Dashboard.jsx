@@ -6,7 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import { ClipLoader } from 'react-spinners'; // Import a spinner library
 
 // Register chart components
-const wardOptions = ['30', '32', '56', '57', '58', '59', '60', '61'];
+const wardOptions = ['30', '32', '56', '57', '58', '59', '60', '61','62','63'];
 const dateOptions = ['2024-09-10', '2024-09-11', '2024-09-12', '2024-09-13','2024-09-14','2024-09-15','2024-09-16','2024-09-17', '2024-09-18', '2024-09-19'];
 
 const iconMapping = {

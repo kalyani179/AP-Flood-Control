@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import ClipLoader from 'react-spinners/ClipLoader'; // Import ClipLoader from react-spinners
+import ClipLoader from 'react-spinners/ClipLoader'; 
 
 const DetailsPage = () => {
     const location = useLocation();
     const { category, ward, date } = location.state || {};
 
-    const [loading, setLoading] = useState(true); // Loading state
+    const [loading, setLoading] = useState(true); 
     const [data, setData] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
-    const [selectedImage, setSelectedImage] = useState(null); // State to store the selected image data
+    const [isModalOpen, setIsModalOpen] = useState(false); 
+    const [selectedImage, setSelectedImage] = useState(null); 
 
     useEffect(() => {
-        setLoading(true);  // Set loading to true when data fetching starts
+        setLoading(true);  
         fetch('https://ap-flood-control.onrender.com/data')
             .then(response => {
                 if (!response.ok) {
@@ -50,10 +50,10 @@ const DetailsPage = () => {
     useEffect(() => {
         // Simulate loading or fetching process for the image
         const timer = setTimeout(() => {
-            setLoading(false); // Turn off the loading state once data is ready
-        }, 2000); // Adjust the delay as needed for your actual loading time
+            setLoading(false); 
+        }, 2000); 
 
-        return () => clearTimeout(timer); // Clean up the timer if the component unmounts
+        return () => clearTimeout(timer); 
     }, []);
 
     const handleImageClick = (item) => {
@@ -74,6 +74,15 @@ const DetailsPage = () => {
             alert('Location coordinates are not available.');
         }
     };
+
+    // Manage the scrolling behavior of the body
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [isModalOpen]);
 
     // Conditionally render loader or details page based on the loading state
     if (loading) {
@@ -114,22 +123,23 @@ const DetailsPage = () => {
                 )}
             </div>
 
-            {/* Modal for larger image view */}
             {isModalOpen && selectedImage && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="relative bg-white p-6 pt-10 rounded-xl shadow-xl max-w-lg w-full">
-                        <button
-                            className="absolute top-2 right-4 text-black hover:text-gray-800"
-                            onClick={closeModal}
-                        >
-                            &#10005; {/* Close (X) symbol */}
-                        </button>
-                        <img
-                            src={selectedImage.imageUrl}
-                            alt={`Large view of ${category}`}
-                            className="w-full h-auto object-cover"
-                        />
-                        <div className="mt-4 flex justify-center">
+                <div className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center">
+                    <button
+                        className="absolute top-4 right-10 text-white text-2xl hover:text-white/50"
+                        onClick={closeModal}
+                    >
+                        &#10005; {/* Close (X) symbol */}
+                    </button>
+                    <div className="relative p-10 pt-20 rounded-xl max-w-3xl w-full">
+                        <div className="flex justify-center items-center">
+                            <img
+                                src={selectedImage.imageUrl}
+                                alt={`Large view of ${category}`}
+                                className="w-full max-h-screen object-contain"
+                            />
+                        </div>
+                        <div className="mt-6 flex justify-center">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
                                 onClick={() => openGoogleMaps(selectedImage.latitude, selectedImage.longitude)}
@@ -140,7 +150,6 @@ const DetailsPage = () => {
                     </div>
                 </div>
             )}
-
         </div>
     );
 };

@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
-import ClipLoader from 'react-spinners/ClipLoader'; 
+import { useLocation, useNavigate } from 'react-router-dom';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const DetailsPage = () => {
     const location = useLocation();
+    const navigate = useNavigate(); // Initialize navigate
     const { category, ward, date } = location.state || {};
 
     const [loading, setLoading] = useState(true); 
     const [data, setData] = useState([]);
+    const [filteredLoading, setFilteredLoading] = useState(true); // New state for filtered data loading
     const [isModalOpen, setIsModalOpen] = useState(false); 
     const [selectedImage, setSelectedImage] = useState(null); 
 
@@ -34,6 +36,7 @@ const DetailsPage = () => {
     const filteredData = useMemo(() => {
         const result = data.filter(item => item.ward === ward && item.date === date && item.type === category);
         console.log('Filtered Data:', result);
+        setFilteredLoading(false); // Set filtered loading to false once filtering is complete
         return result;
     }, [data, ward, date]);
 
@@ -50,7 +53,7 @@ const DetailsPage = () => {
     useEffect(() => {
         // Simulate loading or fetching process for the image
         const timer = setTimeout(() => {
-            setLoading(false); 
+            setFilteredLoading(false); 
         }, 2000); 
 
         return () => clearTimeout(timer); 
@@ -85,16 +88,24 @@ const DetailsPage = () => {
     }, [isModalOpen]);
 
     // Conditionally render loader or details page based on the loading state
-    if (loading) {
+    if (loading || filteredLoading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <ClipLoader color={"#123abc"} loading={loading} size={100} /> {/* Loader component */}
+                <ClipLoader color={"#123abc"} loading={loading || filteredLoading} size={100} /> {/* Loader component */}
             </div>
         );
     }
 
     return (
         <div className="container mt-9 mx-auto flex flex-col gap-9 p-4">
+            {/* Back Button */}
+            <button
+                className="absolute top-4 left-7 text-blue-600 text-3xl font-extrabold hover:text-blue-800"
+                onClick={() => navigate(-1)} // Go back to the previous page
+            >
+                &larr;
+            </button>
+
             {/* Ward and Date */}
             <div className="text-center">
                 <span className="text-blue-600 bg-blue-100 px-6 border border-blue-700 py-2 rounded-full text-xl">

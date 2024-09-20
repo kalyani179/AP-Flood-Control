@@ -40,7 +40,7 @@ const Weather = () => {
     return (
         <div className="flex flex-col text-center">
             <div className="flex items-center justify-center text-gray-700">
-                <FaMapMarkerAlt className="text-xl mr-2" />  {/* Location Icon */}
+                <FaMapMarkerAlt className="text-xl mr-2 text-blue-400" />  {/* Location Icon */}
                 <h3 className="text-sm -my-2">{weatherData.city}</h3>
             </div>
             <img src={weatherData.icon} alt="Weather Icon" className="mx-auto -my-3 text-xl" />

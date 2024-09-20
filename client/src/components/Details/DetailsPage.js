@@ -8,7 +8,8 @@ const DetailsPage = () => {
 
     const [loading, setLoading] = useState(true); // Loading state
     const [data, setData] = useState([]);
-    const [selectedLocation, setSelectedLocation] = useState(null); // State for selected location
+    const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+    const [selectedImage, setSelectedImage] = useState(null); // State to store the selected image data
 
     useEffect(() => {
         setLoading(true);  // Set loading to true when data fetching starts
@@ -55,7 +56,17 @@ const DetailsPage = () => {
         return () => clearTimeout(timer); // Clean up the timer if the component unmounts
     }, []);
 
-    const handleImageClick = (latitude, longitude) => {
+    const handleImageClick = (item) => {
+        setSelectedImage(item);
+        setIsModalOpen(true); // Open the modal when an image is clicked
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedImage(null);
+    };
+
+    const openGoogleMaps = (latitude, longitude) => {
         if (latitude && longitude) {
             const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
             window.open(googleMapsUrl, '_blank');
@@ -94,7 +105,7 @@ const DetailsPage = () => {
                                 src={item.imageUrl}
                                 alt={`for ${category}`}
                                 className="w-full max-w-md h-auto object-cover"
-                                onClick={() => handleImageClick(item.latitude, item.longitude)}
+                                onClick={() => handleImageClick(item)}
                             />
                         </div>
                     ))
@@ -102,6 +113,33 @@ const DetailsPage = () => {
                     <p>No images available.</p>
                 )}
             </div>
+
+            {/* Modal for larger image view */}
+            {isModalOpen && selectedImage && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="relative bg-white p-6 pt-10 rounded-xl shadow-xl max-w-lg w-full">
+                        <button
+                            className="absolute top-2 right-4 text-black hover:text-gray-800"
+                            onClick={closeModal}
+                        >
+                            &#10005; {/* Close (X) symbol */}
+                        </button>
+                        <img
+                            src={selectedImage.imageUrl}
+                            alt={`Large view of ${category}`}
+                            className="w-full h-auto object-cover"
+                        />
+                        <div className="mt-4 flex justify-center">
+                            <button
+                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                onClick={() => openGoogleMaps(selectedImage.latitude, selectedImage.longitude)}
+                            >
+                                Go to Location
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </div>
     );

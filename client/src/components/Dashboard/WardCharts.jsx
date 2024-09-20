@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Import Chart.js
 import { ClipLoader } from 'react-spinners';
 
-const dateOptions = ['2024-09-11', '2024-09-12', '2024-09-13', '2024-09-14', '2024-09-15','2024-09-16','2024-09-17', '2024-09-18', '2024-09-19', '2024-09-20']; // Define the complete set of dates
+const dateOptions = ['2024-09-11', '2024-09-12', '2024-09-13', '2024-09-14', '2024-09-15','2024-09-16','2024-09-17', '2024-09-18', '2024-09-19', '2024-09-20'];
 
 const WardCharts = ({ selectedWard }) => {
     const [data, setData] = useState([]);

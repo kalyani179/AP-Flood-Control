@@ -124,7 +124,7 @@ const DetailsPage = () => {
             </div>
 
             {isModalOpen && selectedImage && (
-                <div className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center">
+                <div className="fixed inset-0 bg-black/80 flex justify-center items-center">
                     <button
                         className="absolute top-4 right-10 text-white text-2xl hover:text-white/50"
                         onClick={closeModal}

@@ -150,7 +150,7 @@ const DetailsPage = () => {
                                 className="w-full max-h-screen object-contain"
                             />
                         </div>
-                        <div className="mt-6 flex justify-center">
+                        <div className="mt-4 flex justify-center">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
                                 onClick={() => openGoogleMaps(selectedImage.latitude, selectedImage.longitude)}

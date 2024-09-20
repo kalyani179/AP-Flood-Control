@@ -116,7 +116,7 @@ const Dashboard = () => {
                     {/* Dropdowns */}
                     <div className="flex space-x-8 justify-center items-center mx-auto">
                         <div className="flex flex-col justify-center items-center">
-                            <label htmlFor="ward" className="block text-lg font-semibold mb-2">
+                            <label htmlFor="ward" className="block text-lg text-[18px] font-medium mb-2">
                                 Select Ward
                             </label>
                             <select
@@ -133,7 +133,7 @@ const Dashboard = () => {
                             </select>
                         </div>
                         <div className="flex flex-col justify-center items-center">
-                            <label htmlFor="date" className="block text-lg font-semibold mb-2">
+                            <label htmlFor="date" className="block text-lg text-[18px] font-medium mb-2">
                                 Select Date
                             </label>
                             <select

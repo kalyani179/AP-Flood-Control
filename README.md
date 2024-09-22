@@ -33,5 +33,3 @@
 ## Conclusion
 
 - 🔚 Impact: The AP Flood Control project enhances flood management in Vijayawada. It empowers officials with the tools needed to monitor and respond effectively to flood-related challenges, ultimately benefiting the community.
-
---- 

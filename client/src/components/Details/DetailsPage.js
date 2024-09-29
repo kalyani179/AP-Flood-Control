@@ -103,7 +103,7 @@ const DetailsPage = () => {
                 className="absolute top-4 left-7 text-blue-600 text-3xl font-extrabold hover:text-blue-800"
                 onClick={() => navigate(-1)} // Go back to the previous page
             >
-                &larr;
+                ⬅️
             </button>
 
             {/* Ward and Date */}

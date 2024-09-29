@@ -182,7 +182,7 @@ const Dashboard = () => {
                             onClick={() => handleCardClick('Silt Area', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['silt']}</div>
-                            <p className="text-3xl font-bold mb-2">{0}</p> {/* Using mosquitoCount */}
+                            <p className="text-3xl font-bold mb-2">{0}</p> 
                             <p className="text-gray-500 mb-2">Silt Area</p>
                         </div>
                         <div
@@ -190,7 +190,7 @@ const Dashboard = () => {
                             onClick={() => handleCardClick('Submerged Vehicle', null, null, null)} 
                         >
                             <div className="flex justify-center mb-4">{iconMapping['vehicle']}</div>
-                            <p className="text-3xl font-bold mb-2">{0}</p> {/* Using mosquitoCount */}
+                            <p className="text-3xl font-bold mb-2">{0}</p> 
                             <p className="text-gray-500 mb-2">Submerged Vehicle</p>
                         </div>
                     </div>

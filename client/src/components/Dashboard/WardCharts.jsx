@@ -13,7 +13,7 @@ const WardCharts = ({ selectedWard }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://ap-flood-control.onrender.com/ward-image-count?ward=${selectedWard}`);
+                const response = await fetch(`http://localhost:5000/ward-image-count?ward=${selectedWard}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

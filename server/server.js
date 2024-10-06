@@ -7,7 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB (imagebase database)
 mongoose.connect('mongodb+srv://ap-flood:ap-flood-password@ap-flood.kqxk7.mongodb.net/imagebase?retryWrites=true&w=majority&appName=ap-flood', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -18,7 +17,7 @@ mongoose.connect('mongodb+srv://ap-flood:ap-flood-password@ap-flood.kqxk7.mongod
 // Endpoint to fetch data from 'imageObject' collection
 app.get('/data', async (req, res) => {
     try {
-        const data = await ImageObject.find({}); // Use the ImageObject model to query the collection
+        const data = await ImageObject.find({}); 
         res.json(data);
     } catch (err) {
         res.status(500).send(err);
@@ -56,7 +55,7 @@ app.get('/ward-image-count', async (req, res) => {
     }
 
     try {
-        // Fetch data grouped by date and type
+        // Fetching data grouped by date and type
         const counts = await ImageObject.aggregate([
             { $match: { ward } },
             { $group: {
@@ -72,10 +71,8 @@ app.get('/ward-image-count', async (req, res) => {
                     }
                 }
             }},
-            { $sort: { _id: 1 } } // Sort by date
+            { $sort: { _id: 1 } } // Sorting by date
         ]);
-
-        // Transform the data to the desired format
         const result = counts.map(dateGroup => {
             const garbageCount = dateGroup.data.find(item => item.type === 'garbage')?.count || 0;
             const mosquitoCount = dateGroup.data.find(item => item.type === 'mosquito')?.count || 0;

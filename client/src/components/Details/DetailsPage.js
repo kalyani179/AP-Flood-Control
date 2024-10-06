@@ -15,7 +15,7 @@ const DetailsPage = () => {
 
     useEffect(() => {
         setLoading(true);  
-        fetch('https://ap-flood-control.onrender.com/data')
+        fetch('http://localhost:5000/data')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

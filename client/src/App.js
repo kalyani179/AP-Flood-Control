@@ -11,11 +11,11 @@ const App = () => {
       <div>
         <Routes>
           {/* Define the default route for Dashboard */}
-          <Route path="/" element={<Dashboard />} />
+          {/* <Route path="/" element={<Dashboard />} /> */}
           
           {/* Define the route for the DetailsPage */}
-          <Route path="/details" element={<DetailsPage />} />
-          <Route path="/map" element={<Map />} />
+          {/* <Route path="/details" element={<DetailsPage />} /> */}
+          <Route path="/" element={<Map />} />
         </Routes>
         <Footer />
       </div>

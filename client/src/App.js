@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
 import DetailsPage from './components/Details/DetailsPage';
 import Footer from './components/Footer/Footer';
+import Map from './components/Dashboard/Map';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           
           {/* Define the route for the DetailsPage */}
           <Route path="/details" element={<DetailsPage />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
         <Footer />
       </div>

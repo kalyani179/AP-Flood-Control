@@ -1,2 +1,3 @@
-GET http://localhost:5000/data
+GET http://localhost:5000/map
+
 

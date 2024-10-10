@@ -17,7 +17,7 @@ const Map = () => {
 
     useEffect(() => {
         // Fetch the data from the backend
-        axios.get('http://localhost:5000/map')
+        axios.get('https://ap-flood-control.onrender.com/map')
             .then(response => {
                 setMarkers(response.data);
             })

@@ -30,7 +30,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(true);  // Set loading to true when data fetching starts
-        fetch('http://localhost:5000/data')
+        fetch('https://ap-flood-control.onrender.com/data')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -54,7 +54,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchImageCounts = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/image-count?ward=${selectedWard}&date=${selectedDate}`);
+                const response = await fetch(`https://ap-flood-control.onrender.com/image-count?ward=${selectedWard}&date=${selectedDate}`);
                 
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);

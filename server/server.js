@@ -90,15 +90,15 @@ app.get('/ward-image-count', async (req, res) => {
     }
 });
 
-// New endpoint to fetch latitude and longitude data for mapping
 app.get('/map', async (req, res) => {
     try {
-        const data = await ImageObject.find({}, 'latitude longitude'); // Fetch only latitude, longitude, and type
+        const data = await ImageObject.find({}, 'latitude longitude').limit(50); // Limit to 50 entries
         res.json(data);
     } catch (err) {
         res.status(500).send(err);
     }
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

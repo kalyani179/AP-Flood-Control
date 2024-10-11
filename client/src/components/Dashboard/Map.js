@@ -27,7 +27,7 @@ const Map = () => {
     }, []);
 
     return (
-        <MapContainer center={[16.5062, 80.6480]} zoom={13} style={{ height: '600px', width: '100%' }}> {/* Vijayawada coordinates */}
+        <MapContainer center={[16.5314672, 80.6271021]} zoom={13} style={{ height: '600px', width: '100%' }}> {/* Vijayawada coordinates */}
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
